@@ -293,7 +293,8 @@
         <activity android:name="NetworkSetting"
                 android:label="@string/networks"
                 android:configChanges="orientation|screenSize|keyboardHidden"
-                android:theme="@style/NetworkOperatorsSettingsTheme">
+                android:theme="@style/NetworkOperatorsSettingsTheme"
+                android:parentActivityName="MobileNetworkSettings">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.settings.NETWORK_OPERATOR_SETTINGS" />
@@ -554,6 +555,13 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".PhoneToggler" android:permission="com.android.phone.CHANGE_NETWORK_MODE">
+            <intent-filter>
+                <action android:name="com.android.internal.telephony.REQUEST_NETWORK_MODE" />
+                <action android:name="com.android.internal.telephony.MODIFY_NETWORK_MODE" />
+            </intent-filter>
+        </receiver>
+
         <!-- service to dump telephony information -->
         <service android:name="HfaService" android:exported="false"/>
 
@@ -585,4 +593,10 @@
             </intent-filter>
         </provider>
     </application>
+
+    <permission android:name="com.android.phone.CHANGE_NETWORK_MODE"
+        android:label="@string/perm_change_mobile_network"
+        android:description="@string/perm_change_mobile_network_desc"
+        android:permissionGroup="android.permission-group.COST_MONEY"
+        android:protectionLevel="dangerous" />
 </manifest>
